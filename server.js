@@ -26,6 +26,7 @@ app.get('/api/getAbelminerVersion', (req, res) => {
             console.log(`Stderr (Python Version): ${stderr}`);
             return res.send({ version: stderr.trim() }); // Send back the version
         }
+        console.log(`Message: ${stdout}`);
         res.send({ version: stdout.trim() }); // Fallback if output goes to stdout
     });
 });
