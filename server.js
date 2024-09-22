@@ -13,20 +13,19 @@ app.use(cors({
 // Initialize the counter in memory
 let counter = 0;
 
-// Endpoint to run a Python script to get Abelminer version
+// Endpoint to get Abelminer version
 app.get('/api/getAbelminerVersion', (req, res) => {
-    // Run 'python --version' command in the terminal
+    // Run 'abelminer --version' command in the terminal
     exec('/usr/local/bin/abelminer --version', (error, stdout, stderr) => {
         if (error) {
             console.error(`Error: ${error.message}`);
             return res.status(500).send('Error running the Python command.');
         }
         if (stderr) {
-            // Note: 'python --version' typically sends output to stderr, so we handle it here
-            console.log(`Stderr (Python Version): ${stderr}`);
+            // Note: 'Abelminer --version' typically sends output to stderr, so we handle it here
+            console.log(`Stderr (Abelminer Version): ${stderr}`);
             return res.send({ version: stderr.trim() }); // Send back the version
         }
-        console.log(`Message: ${stdout}`);
         res.send({ version: stdout.trim() }); // Fallback if output goes to stdout
     });
 });
